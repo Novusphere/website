@@ -51,7 +51,7 @@
         window.onYouTubeIframeAPIReady = function() {
             player = new YT.Player('tubular-player', {
                 width: options.width,
-                height: Math.ceil(options.width / options.ratio),
+                height: Math.ceil(options.width / options.ratio) + 50,
                 videoId: options.videoId,
                 playerVars: {
                     controls: 0,
@@ -98,7 +98,7 @@
                 pWidth = Math.ceil(height * options.ratio); // get new player width
                 $tubularPlayer.width(pWidth).height(height).css({left: (width - pWidth) / 2, top: 0}); // player width is greater, offset left; reset top
             } else { // new video width < window width (gap to right)
-                pHeight = Math.ceil(width / options.ratio); // get new player height
+                pHeight = Math.ceil(width / options.ratio) + 50; // get new player height
                 $tubularPlayer.width(width).height(pHeight).css({left: 0, top: (height - pHeight) / 2}); // player height is greater, offset top; reset left
             }
 
