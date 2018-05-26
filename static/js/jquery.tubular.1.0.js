@@ -68,7 +68,9 @@
 
         window.onPlayerReady = function(e) {
             resize();
-            if (options.mute) e.target.mute();
+            if (options.mute) { 
+                e.target.mute();
+            }
             e.target.seekTo(options.start);
             e.target.playVideo();
         }
@@ -77,7 +79,9 @@
             if (state.data === 0 && options.repeat) { // video ended and repeat option is set true
                 player.seekTo(options.start); // restart
             }
-            if (options.onPlayerStateChange) options.onPlayerStateChange(state);
+            if (options.onPlayerStateChange) { 
+                options.onPlayerStateChange(state, player);
+            }
         }
 
         // resize handler updates width, height and offset of player after resize/init

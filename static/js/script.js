@@ -28,11 +28,16 @@ $('.scrolling').on('click', function(e) {
 
       var options = { 
             videoId: 'dd4Lnrn26oI', 
-            start: 3,
+            start: 0,
             mute: true,
-            onPlayerStateChange: function (state) {
+            onPlayerStateChange: function (state, player) {
               if (state.data === YT.PlayerState.PLAYING) {
                  stopWave();
+                 setTimeout(function() {
+                    
+                    player.seekTo(0);
+
+                 }, 1000*60*5);
               }
             }
       };
