@@ -37,7 +37,7 @@ $('.scrolling').on('click', function(e) {
                     
                     player.seekTo(0);
 
-                 }, 1000*60*5);
+                 }, 1000*60*4);
               }
             }
       };
