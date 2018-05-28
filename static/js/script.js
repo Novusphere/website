@@ -8,47 +8,34 @@ $('.scrolling').on('click', function (e) {
 $('[data-toggle="tooltip"]').tooltip();
 
 (function () {
-    var path = document.querySelector('#wave');
-    var animation = document.querySelector('#moveTheWave');
-    var m = 0.512286623256592433;
-    var waving = true;
-
-    function buildWave(w, h) {
-        var a = h / 4;
-        var y = h / 2;
-        var pathData = ['M', w * 0, y + a / 2, 'c', a * m, 0, -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a].join(' ');
-        path.setAttribute('d', pathData);
+    function restartVideo() {
+        var video = $("#video-bg video")[0];
+        video.currentTime = 0;
+        setTimeout(restartVideo, 1000*60*4);
     }
 
-    function stopWave() {
-        if (!waving)
-            return;
-        waving = false;
-        $(".loading-page").delay(100).fadeOut("slow");
-    }
+    function resize() {
+        var options = { ratio: 16/9 };
 
-    buildWave(90, 60);
-    //setTimeout(stopWave, 5000);
+        var width = $(window).width(),
+            pWidth, // player width, to be defined
+            height = $(window).height(),
+            pHeight, // player height, tbd
+            $tubularPlayer = $('#video-bg');
 
-    var options = {
-        videoId: 'dd4Lnrn26oI',
-        start: 0,
-        mute: true,
-        onPlayerStateChange: function (state, player) {
-            if (state.data === YT.PlayerState.PLAYING) {
+        // when screen aspect ratio differs from video, video must center and underlay one dimension
 
-                function restartVideo() {
-                    player.seekTo(0);
-                    setTimeout(restartVideo, 1000 * 60 * 4);
-                }
-
-                if (waving) {
-                    stopWave();
-                    restartVideo();
-                }
-            }
+        if (width / options.ratio < height) { // if new video height < window height (gap underneath)
+            pWidth = Math.ceil(height * options.ratio); // get new player width
+            $tubularPlayer.width(pWidth).height(height).css({left: (width - pWidth) / 2, top: 0}); // player width is greater, offset left; reset top
+        } else { // new video width < window width (gap to right)
+            pHeight = Math.ceil(width / options.ratio); // get new player height
+            $tubularPlayer.width(width).height(pHeight).css({left: 0, top: (height - pHeight) / 2}); // player height is greater, offset top; reset left
         }
-    };
 
-    $('#youtubeBg').tubular(options);
+    }
+
+    restartVideo();
+    resize();
+    $(window).resize(resize);
 })();
