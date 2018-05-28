@@ -28,7 +28,7 @@ $('[data-toggle="tooltip"]').tooltip();
     }
 
     buildWave(90, 60);
-    setTimeout(stopWave, 5000);
+    //setTimeout(stopWave, 5000);
 
     var options = {
         videoId: 'dd4Lnrn26oI',
@@ -36,14 +36,16 @@ $('[data-toggle="tooltip"]').tooltip();
         mute: true,
         onPlayerStateChange: function (state, player) {
             if (state.data === YT.PlayerState.PLAYING) {
-                stopWave();
 
                 function restartVideo() {
                     player.seekTo(0);
                     setTimeout(restartVideo, 1000 * 60 * 4);
                 }
 
-                restartVideo();
+                if (waving) {
+                    stopWave();
+                    restartVideo();
+                }
             }
         }
     };
