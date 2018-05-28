@@ -22,13 +22,11 @@
 </head>
 
 <body>
-    <div class="loading-page">
-        <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="60px" viewBox="5 0 80 60">
-            <path id="wave" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d=""></path>
-        </svg>
+    <div id="video-bg" style="position: fixed; z-index: 1; background-image: url('static/img/background.png')">
+        <video style="height: 100%;" muted defaultMuted autoplay playsinline>
+            <source src="https://cdn.novusphere.io/static/timelapse.mp4" type="video/mp4">
+        </video>
     </div>
-
-    <div id="youtubeBg"></div>
     <div class="overlay-bg"></div>
     <div id="homePage">
         <div id="content" class="content">

@@ -1,46 +1,41 @@
-$('.scrolling').on('click', function(e) {
+$('.scrolling').on('click', function (e) {
     e.preventDefault();
     $('html, body').animate({
         scrollTop: $($.attr(this, 'href')).offset().top
     }, 500);
-  });
+});
 
-  $('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="tooltip"]').tooltip();
 
-  (function() {
-      var path = document.querySelector('#wave');
-      var animation = document.querySelector('#moveTheWave');
-      var m = 0.512286623256592433;
+(function () {
+    function restartVideo() {
+        var video = $("#video-bg video")[0];
+        video.currentTime = 0;
+        setTimeout(restartVideo, 1000*60*4);
+    }
 
-      function buildWave(w, h) {
-          var a = h / 4;
-          var y = h / 2;
-          var pathData = ['M', w * 0, y + a / 2, 'c', a * m, 0, -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a, 's', -(1 - a) * m, a, a, a, 's', -(1 - a) * m, -a, a, -a].join(' ');
-          path.setAttribute('d', pathData);
-      }
+    function resize() {
+        var options = { ratio: 16/9 };
 
-      function stopWave() {
-          $(".loading-page").fadeOut;
-          $(".loading-page").delay(100).fadeOut("slow");
-      }
+        var width = $(window).width(),
+            pWidth, // player width, to be defined
+            height = $(window).height(),
+            pHeight, // player height, tbd
+            $tubularPlayer = $('#video-bg');
 
-      buildWave(90, 60);
+        // when screen aspect ratio differs from video, video must center and underlay one dimension
 
-      var options = { 
-            videoId: 'dd4Lnrn26oI', 
-            start: 0,
-            mute: true,
-            onPlayerStateChange: function (state, player) {
-              if (state.data === YT.PlayerState.PLAYING) {
-                 stopWave();
-                 setTimeout(function() {
-                    
-                    player.seekTo(0);
+        if (width / options.ratio < height) { // if new video height < window height (gap underneath)
+            pWidth = Math.ceil(height * options.ratio); // get new player width
+            $tubularPlayer.width(pWidth).height(height).css({left: (width - pWidth) / 2, top: 0}); // player width is greater, offset left; reset top
+        } else { // new video width < window width (gap to right)
+            pHeight = Math.ceil(width / options.ratio); // get new player height
+            $tubularPlayer.width(width).height(pHeight).css({left: 0, top: (height - pHeight) / 2}); // player height is greater, offset top; reset left
+        }
 
-                 }, 1000*60*4);
-              }
-            }
-      };
+    }
 
-      $('#youtubeBg').tubular(options);
-  })();
+    restartVideo();
+    resize();
+    $(window).resize(resize);
+})();
