@@ -77,7 +77,7 @@
                     <div class="col-md-3 col-xs-12">
                         <h1><font-awesome-icon :icon="['fas', 'globe']" ></font-awesome-icon></h1>
                         <h5>Decentralized Governance</h5>
-                        <p>Important decisions are made final by ATMOS holders. The community governs the the direction of development.</p>
+                        <p>Important decisions are made final by ATMOS holders. The community governs the direction of development.</p>
                     </div>
                     <div class="col-md-3 col-xs-12">
                         <h1><font-awesome-icon :icon="['fas', 'code']" ></font-awesome-icon></h1>
@@ -87,7 +87,7 @@
                     <div class="col-md-3 col-xs-12">
                         <h1><font-awesome-icon :icon="['fas', 'unlock']" ></font-awesome-icon></h1>
                         <h5>Uncensorable</h5>
-                        <p>Anyone can add content and entries into the database. Anyone can self-host a Novusphere decentralized application.</p>
+                        <p>Anyone can add content to the database via the EOS blockchain. Anyone can self-host a Novusphere decentralized application.</p>
                     </div>
                 </div>
             </div>
