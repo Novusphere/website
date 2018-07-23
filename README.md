@@ -1,6 +1,6 @@
-# novusphere
+# novusphere-website
 
-> novusphere.io
+> novusphere.io website
 
 ## Build Setup
 
