@@ -195,7 +195,7 @@ export default {
       var $videobg = jQuery('#video-bg video, #video-bg img');
       var $window = jQuery(window);
       $videobg.css('width', ($window.width() + 30) + 'px');
-      $videobg.css('height', ($window.height() + 30) + 'px');
+      $videobg.css('height', ($window.height() + 100) + 'px');
     },
     restartVideo() {
       var video = jQuery("#video-bg video")[0];
