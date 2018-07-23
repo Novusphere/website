@@ -63,7 +63,7 @@
           </div>
           <div class="row">
             <div class="offset-md-4 col-md-4 col-xs-12 text-center mb-4">
-              <a href="#" class="btn btn-outline-light">WHITEPAPER</a>
+              <a href="https://docs.google.com/document/d/e/2PACX-1vSBdM9mqS8QYrv50mqXP7tYdDhl9EcXdr8UnunqGOr43m_9Ka4cOdZRBV6eMllnBAipP_L3kTm0kzKV/pub" class="btn btn-outline-light">WHITEPAPER</a>
             </div>
           </div>
           <div class="row">
