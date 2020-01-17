@@ -14,8 +14,6 @@ library.add(fas);
 library.add(fab);
 
 import Index from "@/components/Index";
-import Team from "@/components/Team";
-import PushTx from "@/components/PushTx";
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -28,16 +26,6 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
-    },
-    {
-      path: '/team',
-      name: 'Team',
-      component: Team
-    },
-    {
-      path: '/atmosd/pushtx',
-      name: 'PushTx',
-      component: PushTx
     }
   ]
 });

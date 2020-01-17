@@ -38,16 +38,6 @@
                     </a>
                   </li>
                   <li class="list-inline-item">
-                    <a href="https://github.com/Novusphere/temporary-blockchain/blob/master/PRECOMPILED.MD" data-toggle="tooltip" data-animation="false" data-placement="top" title="Wallet">
-                      <font-awesome-icon :icon="['fas', 'wallet']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="https://www.cryptopia.co.nz/Exchange/?market=ATMOS_BTC" data-toggle="tooltip" data-animation="false" data-placement="top" title="Trade (BTC)">
-                      <font-awesome-icon :icon="['fab', 'btc']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
                     <a href="https://newdex.io/trade/novusphereio-atmos-eos" data-toggle="tooltip" data-animation="false" data-placement="top" title="Trade (EOS)">
                       <img style="position: relative; left: -14px; top: -3px;" src="https://cdn.novusphere.io/static/eos2.svg" width="40" height="30">
                     </a>
@@ -159,6 +149,7 @@ export default {
       var $window = jQuery(window);
       $videobg.css('width', ($window.width() + 30) + 'px');
       $videobg.css('height', ($window.height() + 100) + 'px');
+      console.log('hello');
     },
     restartVideo() {
       var video = jQuery("#video-bg video")[0];

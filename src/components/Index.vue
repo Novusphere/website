@@ -35,70 +35,26 @@
           <div class="row">
             <div class="footer">
                 <div class="row">
-                    <div class="col-md-3 col-xs-12">
+                    <div class="col-md-4 col-xs-12">
                         <h1><font-awesome-icon :icon="['fas', 'balance-scale']" ></font-awesome-icon></h1>
-                        <h5>Free Usage</h5>
-                        <p>Novusphere is entirely free to use, no mandatory paywalls to access content you can otherwise find elsewhere for free.</p>
+                        <h5>Free and Open Source</h5>
+                        <p>Novusphere develops free to use open source software.</p>
                     </div>
-                    <div class="col-md-3 col-xs-12">
+                    <div class="col-md-4 col-xs-12">
                         <h1><font-awesome-icon :icon="['fas', 'globe']" ></font-awesome-icon></h1>
                         <h5>Decentralized Governance</h5>
-                        <p>Important decisions are made final by ATMOS holders. The community governs the direction of development.</p>
+                        <p>Novusphere is community driven. ATMOS token holders govern the future of Novusphere.</p>
                     </div>
-                    <div class="col-md-3 col-xs-12">
-                        <h1><font-awesome-icon :icon="['fas', 'code']" ></font-awesome-icon></h1>
-                        <h5>Open Source</h5>
-                        <p>We strive to produce open source software that is free to use and anyone can audit.</p>
-                    </div>
-                    <div class="col-md-3 col-xs-12">
+                    <div class="col-md-4 col-xs-12">
                         <h1><font-awesome-icon :icon="['fas', 'unlock']" ></font-awesome-icon></h1>
                         <h5>Uncensorable</h5>
-                        <p>Anyone can add content to the database via the EOS blockchain. Anyone can self-host a Novusphere decentralized application.</p>
+                        <p>Through the use of blockchain technology, the decentralized applications Novusphere develops are immutable and censorship resistant.</p>
                     </div>
                 </div>
             </div>
           </div>
     </Layout>
 
-    <!-- Modal -->
-      <div class="modal fade" id="swapModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">EOS ATMOS Token Swap</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">EOS Account</label>
-                  <div class="col-sm-6">
-                    <input v-model="eos_address" type="text" class="form-control" placeholder="EOS Account">
-                  </div>
-                  <div class="col-sm-2">
-                    <button v-on:click="getSwapAddress()" type="button" class="btn btn-primary">Next</button>
-                  </div>
-                </div>
-                <div v-if="swap_error || swap_address">
-                  <div class="text-center ml-1 mr-1">
-                      <p class="mb-3" v-if="swap_error"><strong>Error:</strong> {{ swap_error }} </p>
-                      <p class="mb-3" v-if="swap_address"><strong>{{ swap_address }}</strong></p>
-                      <p v-if="swap_address">
-                        Send your ATMOS to the address provided to receive the <a target="_blank" href="https://eosflare.io/token/novusphereio/ATMOS">EOS ATMOS token</a> in return. 
-                        Please note since there is a compression to 100,000,000 ATMOS you will receive a smaller amount of EOS ATMOS tokens back but percentage wise it will remain the same. Please also note that the swap could take up to 30 minutes to process and confirm. 
-                        If you encounter any problems or have any questions, please join our <a target="_blank" href="https://discord.gg/PtXzUVr">discord</a>.
-                      </p>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
   </div>
 </template>
 
@@ -113,21 +69,6 @@ export default {
   },
   mounted() {},
   methods: {
-    getSwapAddress() {
-      jQuery.get(
-        "https://legacy.novusphere.io/eos/createswapaddress?eosAccount=" +
-          this.eos_address,
-        res => {
-          if (res.error) {
-            this.swap_error = res.error;
-            this.swap_address = "";
-          } else {
-            this.swap_error = "";
-            this.swap_address = res.address;
-          }
-        }
-      );
-    }
   },
   data() {
     return {
