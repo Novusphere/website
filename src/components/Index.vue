@@ -1,57 +1,13 @@
 <template>
   <div>
-    <div id="video-bg">
-        <img src="static/img/background.png">
-        <video muted defaultMuted autoplay playsinline>
-            <source src="https://cdn.novusphere.io/static/timelapse.mp4" type="video/mp4">
-        </video>
-    </div>
-    <div class="overlay-bg"></div>
-    <div id="homepage">
-        <div class="container content">
-          <div class="row header mt-2">
-            <div class="offset-md-4 col-md-4 col-xs-12 text-center">
-                <ul class="list-inline">
-                  <li class="list-inline-item">
-                    <a href="https://discord.gg/PtXzUVr" data-toggle="tooltip" data-animation="false" data-placement="top" title="Discord">
-                      <font-awesome-icon :icon="['fab', 'discord']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="https://twitter.com/thenovusphere" data-toggle="tooltip" data-animation="false" data-placement="top" title="Twitter">
-                      <font-awesome-icon :icon="['fab', 'twitter']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="https://medium.com/@thenovusphere/" data-toggle="tooltip" data-animation="false" data-placement="top" title="Medium">
-                      <font-awesome-icon :icon="['fab', 'medium']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="https://github.com/Novusphere" data-toggle="tooltip" data-animation="false" data-placement="top" title="GitHub">
-                      <font-awesome-icon :icon="['fab', 'github']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="https://github.com/Novusphere/temporary-blockchain/blob/master/PRECOMPILED.MD" data-toggle="tooltip" data-animation="false" data-placement="top" title="Wallet">
-                      <font-awesome-icon :icon="['fas', 'wallet']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="https://www.cryptopia.co.nz/Exchange/?market=ATMOS_BTC" data-toggle="tooltip" data-animation="false" data-placement="top" title="Trade">
-                      <font-awesome-icon :icon="['fab', 'btc']" ></font-awesome-icon>
-                    </a>
-                  </li>
-                </ul>
-            </div>
-          </div>
+    <Layout>
           <div class="row">
             <div class="offset-md-4 col-md-4 col-xs-12 text-center">
               <object data="static/img/logo.svg" type="image/svg+xml">
               </object>
             </div>
           </div>
-          <div class="row">
+          <div class="row" style="position: relative; top: -25px; margin-bottom: -25px;">
             <div class="offset-md-4 col-md-4 col-xs-12 text-center mb-1">
               <span class="title">NOVUSPHERE</span>
             </div>
@@ -63,7 +19,17 @@
           </div>
           <div class="row">
             <div class="offset-md-4 col-md-4 col-xs-12 text-center mb-4">
-              <a href="https://docs.google.com/document/d/e/2PACX-1vSBdM9mqS8QYrv50mqXP7tYdDhl9EcXdr8UnunqGOr43m_9Ka4cOdZRBV6eMllnBAipP_L3kTm0kzKV/pub" class="btn btn-outline-light">WHITEPAPER</a>
+              <div class="dropdown d-inline">
+                <button class="btn btn-outline-light" type="button" id="whitepaper" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  WHITEPAPERS
+                </button>
+                <div class="dropdown-menu" aria-labelledby="whitepaper">
+                  <a class="dropdown-item" href="https://github.com/Novusphere/docs/blob/master/formal/novusphere-db.md">Atmos DB</a>
+                  <a class="dropdown-item" href="https://docs.google.com/document/d/1TXVH7RdCTfITMmAVc6vlAxLpvP8Pu_k7_gLHl2cKHwc/edit?usp=sharing">Discussions (EN)</a>
+                  <a class="dropdown-item" href="https://docs.google.com/document/d/1XOlFYxoN1XOsc1ySRVJ-e5vtZ69WcY1hfCZj8e4Mokk/edit?usp=sharing">Discussions (中文)</a>
+                </div>
+              </div>
+              <a href="https://beta.discussions.app" class="btn btn-outline-light">DISCUSSIONS</a>
             </div>
           </div>
           <div class="row">
@@ -92,120 +58,83 @@
                 </div>
             </div>
           </div>
+    </Layout>
+
+    <!-- Modal -->
+      <div class="modal fade" id="swapModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">EOS ATMOS Token Swap</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">EOS Account</label>
+                  <div class="col-sm-6">
+                    <input v-model="eos_address" type="text" class="form-control" placeholder="EOS Account">
+                  </div>
+                  <div class="col-sm-2">
+                    <button v-on:click="getSwapAddress()" type="button" class="btn btn-primary">Next</button>
+                  </div>
+                </div>
+                <div v-if="swap_error || swap_address">
+                  <div class="text-center ml-1 mr-1">
+                      <p class="mb-3" v-if="swap_error"><strong>Error:</strong> {{ swap_error }} </p>
+                      <p class="mb-3" v-if="swap_address"><strong>{{ swap_address }}</strong></p>
+                      <p v-if="swap_address">
+                        Send your ATMOS to the address provided to receive the <a target="_blank" href="https://eosflare.io/token/novusphereio/ATMOS">EOS ATMOS token</a> in return. 
+                        Please note since there is a compression to 100,000,000 ATMOS you will receive a smaller amount of EOS ATMOS tokens back but percentage wise it will remain the same. Please also note that the swap could take up to 30 minutes to process and confirm. 
+                        If you encounter any problems or have any questions, please join our <a target="_blank" href="https://discord.gg/PtXzUVr">discord</a>.
+                      </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
   </div>
 </template>
 
-<style>
-#video-bg {
-  position: fixed;
-}
-
-#video-bg img {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  object-fit: fill;
-}
-
-#video-bg video {
-  position: fixed;
-  z-index: 2;
-  width: 100%;
-  object-fit: fill;
-}
-
-.overlay-bg {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 1;
-    background: rgba(20, 20, 20, 0.82);
-}
-
-#homepage {
-  position: relative;
-  height: 100%;
-  z-index: 99;
-}
-
-#homePage .content {
-    display: table;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-#homepage header {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50px;
-    padding-bottom: 15px;
-}
-
-#homepage .header a {
-  color: white;
-  font-size: x-large;
-}
-
-.footer {
-  color: white;
-  text-align: center;
-}
-
-.footer h1 {
-  font-weight: bolder;
-}
-
-.footer h5 {
-  font-weight: bold;
-}
-
-.title {
-  color: #15dcff;
-  font-size: x-large;
-  font-weight: bolder;
-}
-
-.sub-title {
-  color: white;
-  font-size: medium;
-  font-weight: bold;
-}
-
-</style>
-
 <script>
-import jQuery from 'jquery'
+import jQuery from "jquery";
+import Layout from "@/components/Layout";
 
 export default {
-  name: 'Index',
-  mounted() {
-    //jQuery('[data-toggle="tooltip"]').tooltip();
-    jQuery(window).resize(this.resize);
-    this.resize();
-    this.restartVideo();
+  name: "Index",
+  components: {
+    Layout: Layout
   },
-  methods: {  
-    resize() {
-      var $videobg = jQuery('#video-bg video, #video-bg img');
-      var $window = jQuery(window);
-      $videobg.css('width', ($window.width() + 30) + 'px');
-      $videobg.css('height', ($window.height() + 100) + 'px');
-    },
-    restartVideo() {
-      var video = jQuery("#video-bg video")[0];
-      video.currentTime = 0;
-      setTimeout(this.restartVideo, 1000*60*4);
+  mounted() {},
+  methods: {
+    getSwapAddress() {
+      jQuery.get(
+        "https://legacy.novusphere.io/eos/createswapaddress?eosAccount=" +
+          this.eos_address,
+        res => {
+          if (res.error) {
+            this.swap_error = res.error;
+            this.swap_address = "";
+          } else {
+            this.swap_error = "";
+            this.swap_address = res.address;
+          }
+        }
+      );
     }
   },
-  data () {
+  data() {
     return {
-    }
+      eos_address: "",
+      swap_error: "",
+      swap_address: ""
+    };
   }
-}
+};
 </script>

@@ -15,10 +15,13 @@
     "@fortawesome/free-brands-svg-icons": "^5.1.1",
     "@fortawesome/free-solid-svg-icons": "^5.1.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
+    "bitcoinjs-lib": "^4.0.1",
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "eosjs": "^16.0.6",
     "gh-pages": "^1.2.0",
     "jquery": "^3.3.1",
+    "scatter-js": "^2.5.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
