@@ -29,7 +29,7 @@
                   <a class="dropdown-item" href="https://docs.google.com/document/d/1XOlFYxoN1XOsc1ySRVJ-e5vtZ69WcY1hfCZj8e4Mokk/edit?usp=sharing">Discussions (中文)</a>
                 </div>
               </div>
-              <a href="https://beta.discussions.app" class="btn btn-outline-light">DISCUSSIONS</a>
+              <a href="https://discussions.app" class="btn btn-outline-light">DISCUSSIONS</a>
             </div>
           </div>
           <div class="row">
